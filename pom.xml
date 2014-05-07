@@ -105,6 +105,9 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
+
+		
+
         <!-- First declare the APIs we depend on and need for compilation. All 
             of them are provided by JBoss AS 7 -->
 
@@ -290,7 +293,11 @@
 					          <name>java.util.logging.manager</name>
 					          <value>org.jboss.logmanager.LogManager</value>
 					        </property>
-					      </systemProperties>                            
+					      </systemProperties>
+							<excludes>
+								<exclude>**/*ITest.java</exclude>
+							</excludes>
+					                                  
                         </configuration>
                     </plugin>
                 </plugins>

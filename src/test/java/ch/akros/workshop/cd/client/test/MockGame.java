@@ -15,16 +15,16 @@ import ch.akros.workshop.cd.exception.NotEnoughPlayerException;
 public class MockGame implements Game {
 	private Logger logger = LoggerFactory.getLogger(Game.class);
 
-	private volatile Map<Player, AtomicBoolean> players = new HashMap<Player, AtomicBoolean>();
+	private volatile Map<String, AtomicBoolean> players = new HashMap<String, AtomicBoolean>();
 
 	@Override
-	public void subscribe(Player player) {
-		players.put(player, new AtomicBoolean(true));
-		logger.info("subscribe for Player 0 " + player.getName() + " called");
+	public void subscribe(String jndiName, String playerName) {
+		players.put(jndiName, new AtomicBoolean(true));
+		logger.info("subscribe for Player 0 " + playerName + " called");
 	}
 
 	public boolean didPlayerSubscribe(Player player) {
-		AtomicBoolean subscription = players.get(player);
+		AtomicBoolean subscription = players.get(player.getName());
 		return subscription != null ? subscription.get() : false;
 	}
 

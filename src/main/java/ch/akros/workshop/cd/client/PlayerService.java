@@ -1,20 +1,22 @@
 package ch.akros.workshop.cd.client;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.akros.workshop.cd.domain.Game;
 import ch.akros.workshop.cd.domain.Player;
 
 @Startup
-@Stateless
 @Remote
 @LocalBean
+@Singleton
 public class PlayerService implements Player {
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
@@ -23,12 +25,13 @@ public class PlayerService implements Player {
 		logger.info("PlayerService created");
 	}
 
-	// @Inject
-	// GameService game;
+	@EJB(lookup = "java:global/cd/GameService!ch.akros.workshop.cd.domain.Game")
+	Game game;
 
 	@PostConstruct
 	public void onStart() {
-		logger.error("PlayerService");
+		logger.info("onStart");
+		game.subscribe("java:global/cd-client/PlayerService!ch.akros.workshop.cd.domain.Player", this.getName());
 
 	}
 
