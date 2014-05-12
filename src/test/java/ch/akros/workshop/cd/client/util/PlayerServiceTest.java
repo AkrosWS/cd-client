@@ -15,7 +15,7 @@ import ch.akros.workshop.cd.client.PlayerService;
 * 1. DONE ensure that Name is never Null
 * 2. DONE First call keepPlaying shall return true
 * 3. DONE Second call keepPlaying shall return false
-* 4. each call shall alternate starting with true
+* 4. DONE each call shall alternate starting with true
 * 
 * 
 */
@@ -58,4 +58,19 @@ public class PlayerServiceTest {
 		Assert.assertFalse("Second call shall return false", result);
 	}
 
+	@Test
+	public void ensureAlternatingResultOnKeepPlaying() {
+		// Init
+		testee = new PlayerService();
+
+		// run
+		boolean previousResult = false;
+		for (int i = 0; i < 100; i++) {
+			boolean result = testee.keepPlaying();
+
+			Assert.assertTrue("Result " + i + " is not alternating, previous=" + previousResult + " current=" + result, previousResult != result);
+			previousResult = result;
+		}
+
+	}
 }
