@@ -58,7 +58,7 @@ public class PlayerITest {
 	@Inject
 	private PlayerService testee;
 
-	@Test()
+	@Test
 	public void testAutomatedSubscriptionToGame() throws InterruptedException {
 		Thread.sleep(10000L);
 		Assert.assertNotNull(testee);
@@ -66,12 +66,17 @@ public class PlayerITest {
 		Assert.assertTrue("Player did not subscribe", game.didPlayerSubscribe(testee));
 	}
 
-	@Test()
+	@Test
 	public void testKeepPlaying() {
 		for (int i = 0; i < 10; i++) {
 			Assert.assertTrue("Alternating true was not set at call " + (i * 2), testee.keepPlaying());
 			Assert.assertTrue("Alternating false was not set at call " + (i * 2 + 1), testee.keepPlaying());
 		}
 
+	}
+
+	@Test
+	public void testgetName() {
+		Assert.assertNotNull("Player Service does not return a Name", testee.getName());
 	}
 }
