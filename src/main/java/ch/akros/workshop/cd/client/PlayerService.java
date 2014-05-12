@@ -18,6 +18,7 @@ import ch.akros.workshop.cd.domain.Player;
 @LocalBean
 @Singleton
 public class PlayerService implements Player {
+	private static final String name = "Player 1";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
 	public PlayerService() {
@@ -37,8 +38,7 @@ public class PlayerService implements Player {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
