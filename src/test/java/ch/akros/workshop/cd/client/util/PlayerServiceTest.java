@@ -10,11 +10,11 @@ import ch.akros.workshop.cd.client.PlayerService;
 //@formatter:off
 /**
 * 
-* Note we delibertly do not run this with CDI as the PlayerService is a EJB which would cause a problem. Solution would be to factor out the business logic. 
+* Note we deliberately do not run this with CDI as the PlayerService is a EJB which would cause a problem. Solution would be to factor out the business logic. 
 * 
 * 1. DONE ensure that Name is never Null
 * 2. DONE First call keepPlaying shall return true
-* 3. Second call keepPlaying shall return false
+* 3. DONE Second call keepPlaying shall return false
 * 4. each call shall alternate starting with true
 * 
 * 
@@ -45,4 +45,17 @@ public class PlayerServiceTest {
 
 		Assert.assertTrue("First call shall return true", result);
 	}
+
+	@Test
+	public void whenSecondCallKeepPlayingReturnFalse() {
+		// Init
+		testee = new PlayerService();
+
+		// run
+		testee.keepPlaying();
+		boolean result = testee.keepPlaying();
+
+		Assert.assertFalse("Second call shall return false", result);
+	}
+
 }

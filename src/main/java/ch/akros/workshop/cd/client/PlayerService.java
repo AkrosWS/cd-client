@@ -20,6 +20,7 @@ import ch.akros.workshop.cd.domain.Player;
 public class PlayerService implements Player {
 	private static final String name = "Player 1";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
+	private volatile boolean keepPlaying = false;
 
 	public PlayerService() {
 		super();
@@ -43,7 +44,8 @@ public class PlayerService implements Player {
 
 	@Override
 	public boolean keepPlaying() {
-		return true;
+		keepPlaying = !keepPlaying;
+		return keepPlaying;
 	}
 
 }
