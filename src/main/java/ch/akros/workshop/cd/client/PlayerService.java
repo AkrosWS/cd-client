@@ -43,8 +43,7 @@ public class PlayerService implements Player {
 
 	@Override
 	public boolean keepPlaying() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
