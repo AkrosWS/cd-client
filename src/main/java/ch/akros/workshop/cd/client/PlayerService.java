@@ -1,7 +1,6 @@
 package ch.akros.workshop.cd.client;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
@@ -10,7 +9,6 @@ import javax.ejb.Startup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.akros.workshop.cd.domain.Game;
 import ch.akros.workshop.cd.domain.Player;
 
 @Startup
@@ -18,17 +16,12 @@ import ch.akros.workshop.cd.domain.Player;
 @LocalBean
 @Singleton
 public class PlayerService implements Player {
-	private static final String name = "Player 1";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
-	private volatile boolean keepPlaying = false;
 
 	public PlayerService() {
 		super();
 		logger.info("PlayerService created");
 	}
-
-	@EJB(lookup = "java:global/cd/GameService!ch.akros.workshop.cd.domain.Game")
-	Game game;
 
 	@PostConstruct
 	public void onStart() {
@@ -38,13 +31,12 @@ public class PlayerService implements Player {
 
 	@Override
 	public String getName() {
-		return name;
+		return null;
 	}
 
 	@Override
 	public boolean keepPlaying() {
-		keepPlaying = !keepPlaying;
-		return keepPlaying;
+		return false;
 	}
 
 }
