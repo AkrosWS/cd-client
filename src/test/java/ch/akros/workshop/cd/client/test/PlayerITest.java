@@ -24,7 +24,6 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,37 +45,18 @@ public class PlayerITest {
 		return ShrinkWrap
 				.create(WebArchive.class, "client-test.war")
 				.addPackages(true, "ch.akros.workshop.cd.client", "ch.akros.workshop.cd.util", "ch.akros.workshop.cd.service",
-						"ch.akros.workshop.cd.exception", "ch.akros.workshop.cd.domain").addClass(ch.akros.workshop.cd.client.test.MockGame.class)// .deleteClass(Log4jGameLogger.class)
+						"ch.akros.workshop.cd.exception", "ch.akros.workshop.cd.domain")
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				// Deploy our test datasource
 				.addAsWebInfResource("test-ds.xml");
 	}
 
 	@Inject
-	private MockGame game;
-
-	@Inject
 	private PlayerService testee;
 
 	@Test
 	public void testAutomatedSubscriptionToGame() throws InterruptedException {
-		Thread.sleep(10000L);
-		Assert.assertNotNull(testee);
-		Assert.assertNotNull(game);
-		Assert.assertTrue("Player did not subscribe", game.didPlayerSubscribe(testee));
-	}
-
-	@Test
-	public void testKeepPlaying() {
-		for (int i = 0; i < 10; i++) {
-			Assert.assertTrue("Alternating true was not set at call " + (i * 2), testee.keepPlaying());
-			Assert.assertTrue("Alternating false was not set at call " + (i * 2 + 1), testee.keepPlaying());
-		}
 
 	}
 
-	@Test
-	public void testgetName() {
-		Assert.assertNotNull("Player Service does not return a Name", testee.getName());
-	}
 }

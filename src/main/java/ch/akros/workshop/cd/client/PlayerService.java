@@ -18,7 +18,9 @@ import ch.akros.workshop.cd.domain.Player;
 @LocalBean
 @Singleton
 public class PlayerService implements Player {
+	private static final String name = "Player 1";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
+	private volatile boolean keepPlaying = false;
 
 	public PlayerService() {
 		super();
@@ -31,20 +33,18 @@ public class PlayerService implements Player {
 	@PostConstruct
 	public void onStart() {
 		logger.info("onStart");
-		game.subscribe("java:global/cd-client/PlayerService!ch.akros.workshop.cd.domain.Player", this.getName());
 
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public boolean keepPlaying() {
-		// TODO Auto-generated method stub
-		return false;
+		keepPlaying = !keepPlaying;
+		return keepPlaying;
 	}
 
 }
