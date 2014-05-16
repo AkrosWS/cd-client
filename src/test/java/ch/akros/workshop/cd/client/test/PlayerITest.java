@@ -16,23 +16,8 @@
  */
 package ch.akros.workshop.cd.client.test;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import ch.akros.workshop.cd.client.PlayerService;
-import ch.akros.workshop.cd.service.GameService;
-import ch.akros.workshop.cd.service.GameTestInterface;
 
 //@formatter:off
 /**
@@ -45,37 +30,4 @@ import ch.akros.workshop.cd.service.GameTestInterface;
 @RunWith(Arquillian.class)
 public class PlayerITest {
 
-	@Deployment(name = "server", order = 1)
-	public static Archive<?> createServerTestArchive() {
-		return ShrinkWrap.create(WebArchive.class, "cd.war").addPackages(true, "ch.akros.workshop.cd.exception", "ch.akros.workshop.cd.domain")
-				.addClass(ch.akros.workshop.cd.service.GameService.class).addClass(GameTestInterface.class)
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-
-	@Deployment(name = "client", order = 2)
-	public static Archive<?> createClientTestArchive() {
-		return ShrinkWrap
-				.create(WebArchive.class, "client-test.war")
-				.addPackages(true, "ch.akros.workshop.cd.client", "ch.akros.workshop.cd.util", "ch.akros.workshop.cd.service",
-						"ch.akros.workshop.cd.exception", "ch.akros.workshop.cd.domain").addClass(GameTestInterface.class)
-				.deleteClass(GameService.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				// Deploy our test datasource
-				.addAsWebInfResource("test-ds.xml");
-	}
-
-	@EJB(lookup = "java:global/cd/GameService!ch.akros.workshop.cd.domain.Game")
-	private GameService game;
-
-	@Inject
-	private PlayerService testee;
-
-	@Test
-	@OperateOnDeployment("client")
-	public void testAutomatedSubscriptionToGame() throws Exception {
-		Thread.sleep(10000L);
-		Assert.assertNotNull(testee);
-		Assert.assertNotNull(game);
-		Assert.assertTrue("Player did not subscribe", game.didPlayerSubscribe(testee));
-	}
 }
