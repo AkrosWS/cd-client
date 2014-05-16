@@ -28,7 +28,7 @@ public class PlayerService implements Player {
 	}
 
 	@EJB(lookup = "java:global/cd/GameService!ch.akros.workshop.cd.domain.Game")
-	Game game;
+	private Game game;
 
 	@PostConstruct
 	public void onStart() {
