@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,12 @@ public class GameService implements Game, GameTestInterface {
 	public void subscribe(String jndiName, String playerName) {
 		players.put(jndiName, new AtomicBoolean(true));
 		logger.info("subscribe for Player 0 " + playerName + " called");
+		try {
+			Player player = (Player) new InitialContext().lookup(jndiName);
+		} catch (NamingException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	@Override
