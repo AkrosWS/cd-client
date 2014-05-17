@@ -11,14 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.akros.workshop.cd.domain.Game;
-import ch.akros.workshop.cd.domain.SmartPlayer;
+import ch.akros.workshop.cd.domain.VerySmartPlayer;
 
 @Startup
 @Remote
 @LocalBean
 @Singleton
-public class PlayerService implements SmartPlayer {
-	private static final String name = "Player 1";
+public class PlayerService implements VerySmartPlayer {
+	private static final String name = "Player 3";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
 	private volatile boolean keepPlaying = false;
 
@@ -33,7 +33,7 @@ public class PlayerService implements SmartPlayer {
 	@PostConstruct
 	public void onStart() {
 		logger.info("onStart");
-		game.subscribe("java:global/cd-client/PlayerService!ch.akros.workshop.cd.domain.SmartPlayer", this.getName());
+		game.subscribe("java:global/cd-client/PlayerService!ch.akros.workshop.cd.domain.VerySmartPlayer", this.getName());
 
 	}
 
@@ -49,14 +49,36 @@ public class PlayerService implements SmartPlayer {
 	}
 
 	@Override
-	public boolean keepPlaying(boolean[] board) {
+	public boolean keepPlaying(boolean[] board, int[] numberOfStick, int yourSticks) {
+		int stickCount = countSticks(board);
+		if (stickCount < 3) {
+			return true;
+		}
+		if (stickCount == 3) {
+			double average = calcAverage(numberOfStick);
+			if (yourSticks < average) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private double calcAverage(int[] numberOfStick) {
+		double total = 0;
+		for (int i = 0; i < numberOfStick.length; i++) {
+			total += numberOfStick[i];
+		}
+
+		return total / numberOfStick.length;
+	}
+
+	private int countSticks(boolean[] board) {
 		int stickCount = 0;
 		for (int i = 0; i < 5; i++) {
 			if (board[i]) {
 				stickCount++;
 			}
 		}
-		return stickCount < 3;
+		return stickCount;
 	}
-
 }
