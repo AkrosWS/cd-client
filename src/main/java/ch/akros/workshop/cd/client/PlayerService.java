@@ -33,7 +33,7 @@ public class PlayerService implements Player {
 	@PostConstruct
 	public void onStart() {
 		logger.info("onStart");
-		game.subscribe("java:global/cd-client/PlayerService!ch.akros.workshop.cd.domain.Player", this.getName());
+		game.subscribe("java:global/cd-client2/PlayerService!ch.akros.workshop.cd.domain.Player", this.getName());
 
 	}
 
