@@ -21,9 +21,7 @@ import org.junit.runner.RunWith;
 
 //@formatter:off
 /**
- * To run this test in embedded wildfly you got to set
- * -Djava.util.logging.manager=org.jboss.logmanager.LogManager 
- * in run runtime configuration VM Arguments
+ * 
  */
 //@formatter:on
 
