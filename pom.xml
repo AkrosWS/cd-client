@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.akros.workshop.cd</groupId>
-    <artifactId>cd-client</artifactId>
+    <artifactId>cd-client3</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>cd-client</name>
+    <name>cd-client3</name>
     <description>Client which represents a player</description>
 
     <url>http://jboss.org/jbossas</url>
