@@ -55,7 +55,7 @@ public class PlayerITest {
 	@Deployment(name = "client", order = 2)
 	public static Archive<?> createClientTestArchive() {
 		return ShrinkWrap
-				.create(WebArchive.class, "cd-client6.war")
+				.create(WebArchive.class, "cd-client7.war")
 				.addPackages(true, "ch.akros.workshop.cd.client", "ch.akros.workshop.cd.util", "ch.akros.workshop.cd.service",
 						"ch.akros.workshop.cd.exception", "ch.akros.workshop.cd.domain").addClass(GameTestInterface.class)
 				.deleteClass(GameService.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
