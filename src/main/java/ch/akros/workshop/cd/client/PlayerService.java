@@ -18,7 +18,7 @@ import ch.akros.workshop.cd.domain.Player;
 @LocalBean
 @Singleton
 public class PlayerService implements Player {
-	private static final String name = "Player 1";
+	private static final String name = "Player 2";
 	private Logger logger = LoggerFactory.getLogger(PlayerService.class);
 	private volatile boolean keepPlaying = false;
 
